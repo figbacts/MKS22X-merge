@@ -4,29 +4,37 @@ public class Merge{
     mergesort(data,0,data.length-1);
   }
   public static void mergesort(int[]data, int lo, int hi){
-
+    if(lo >= hi){
+      return;
+    }
+    mergesort(data,lo,(lo + hi) /2);
+    mergesort(data,(lo + hi) /2 +1, hi);
+    //merge()
   }
-  public static void merge(int[] FinalDestination, int dataOne, int dataTwo){
-    int index1 = 0;
-    int index2 = 0;
-    while (index1 != data1.length && index2 != data2.length){
-      if(data1[index1] > data2[index2]){
-        FinalDestination[index1 + index2] = data2[index2];
-        index1 ++;
+  public static void merge(int[] FinalDestination, int[] dataOne, int[] dataTwo){
+    int indexOne = 0;
+    int indexTwo = 0;
+    while (indexOne < dataOne.length && indexTwo < dataTwo.length){
+      if (dataOne[indexOne] < dataTwo[indexTwo]){
+        FinalDestination[indexOne + indexTwo] = dataOne[indexOne];
+        indexOne ++;
       }
       else{
-        FinalDestination[index1 + index2] = data2[index2];
-        index2 ++;
+        FinalDestination[indexOne + indexTwo] = dataTwo[indexTwo];
+        indexTwo ++;
       }
     }
-    int leftover = index1;
-    if(index2 == data2.length){
-      leftover = index2;
+    int leftOver[] = dataOne;
+    int leftover = indexOne;
+    if(indexOne == dataOne.length){
+      leftOver = dataTwo;
+      leftover = indexTwo;
+    }
+    for(int i = indexOne + indexTwo; i < dataOne.length + dataTwo.length; i ++){
+      FinalDestination[i] = leftOver[leftover];
+      leftover ++;
+    }
 
-    }
-    for(int i = leftover; i < data1.length; i ++){
-      FinalDestination[i + index2] = data1[i];
-    }
   }
   public static void main(String[] args) {
     int[] orginal = new int [10];
