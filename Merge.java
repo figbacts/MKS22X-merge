@@ -8,7 +8,7 @@ public class Merge{
     if(lo >= hi){
       return;
     }
-    int middle = (lo + hi /2);
+    int middle = ((lo + hi) /2);
     /*
     System.out.println(middle);
 
@@ -31,15 +31,44 @@ public class Merge{
     int LeftIndex = 0;
     int RightIndex = 0;
     int [] left = new int[middle - lo + 1];
-    int [] right = new int[hi - middle -1];
+    int [] right = new int[hi - middle];
+    int [] temp = new int [hi - lo +1];
     for (int i = 0; i < left.length; i ++){
       left[i] = data[lo + i];
     }
     for (int j = 0; j < right.length; j ++){
       right[j] = data[middle + j +1];
     }
-    System.out.println(Arrays.toString(left));
-    System.out.println(Arrays.toString(right));
+    //System.out.println(Arrays.toString(left));
+    //System.out.println(Arrays.toString(right));
+
+    while (RightIndex != right.length && LeftIndex != left.length){
+      if (left[LeftIndex] <= right[RightIndex]){
+        temp[RightIndex + LeftIndex] = left[LeftIndex];
+        LeftIndex ++;
+      }
+      else{
+        temp[RightIndex + LeftIndex] = right[RightIndex];
+        RightIndex ++;
+      }
+    }
+
+    int leftOver[] = left;
+    int leftover = LeftIndex;
+    if(LeftIndex == left.length){
+      leftOver = right;
+      leftover = RightIndex;
+    }
+    //System.out.println(Arrays.toString(leftOver));
+    //System.out.println(leftover);
+    for(int k = LeftIndex + RightIndex; k < left.length + right.length;k ++){
+      temp[k] = leftOver[leftover];
+      leftover ++;
+    }
+    for (int l = 0; l < temp.length; l ++){
+      data[lo +l] = temp[l];
+    }
+    //System.out.println(Arrays.toString(data));
     /*
     while (indexOne < dataOne.length && indexTwo < dataTwo.length){
       if (dataOne[indexOne] < dataTwo[indexTwo]){
@@ -65,10 +94,10 @@ public class Merge{
   }
   public static void main(String[] args) {
     //int[] orginal = new int [10];
-    int[] data1 = {0,2,4,6,8,9,11,13,15};
+    int[] data1 = {2,5,7,3,4,1,0,9,8};
     //int[] data2 = {1,3,5,7};
     //merge(orginal, data1,data2);
-    merge(data1,0,4,9);
-    //System.out.println(Arrays.toString(orginal));
+    mergesort(data1);
+    System.out.println(Arrays.toString(data1));
   }
 }
